@@ -1,4 +1,8 @@
-one = input('one:')
-two = input('two:')
-three = input('three:')
-print(one, two, three) 
+one = 'Hello'
+print(bool(one))
+
+two = 865
+print(float(two))
+
+three = None
+print(str(three))
