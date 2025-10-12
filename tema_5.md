@@ -203,7 +203,29 @@ print(mylist[::-1])
 ## Самостоятельная работа №1
 ### Ресторан на предприятии ведет учет посещений за неделю при помощи кода работника. У них есть список со всеми посещениями за неделю. Ваша задача почитать: • Сколько было выдано чеков • Сколько разных людей посетило ресторан • Какой работник посетил ресторан больше всех раз Список выданных чеков за неделю: [8734, 2345, 8201, 6621, 9999, 1234, 5678, 8201, 8888, 4321, 3365, 1478, 9865, 5555, 7777, 9998, 1111, 2222, 3333, 4444, 5556, 6666, 5410, 7778, 8889, 4445, 1439, 9604, 8201, 3365, 7502, 3016, 4928, 5837, 8201, 2643, 5017, 9682, 8530, 3250, 7193, 9051, 4506, 1987, 3365, 5410, 7168, 7777, 9865, 5678, 8201, 4445, 3016, 4506, 4506] Результатом выполнения задачи будет: листинг кода, и вывод в консоль, в котором будет указана вся необходимая информация.
 ```python
+checks = [8734, 2345, 8201, 6621, 9999, 1234, 5678, 8201, 8888, 4321,
+          3365, 1478, 9865, 5555, 7777, 9998, 1111, 2222, 3333, 4444,
+          5556, 6666, 5410, 7778, 8889, 4445, 1439, 9604, 8201, 3365,
+          7502, 3016, 4928, 5837, 8201, 2643, 5017, 9682, 8530, 3250,
+          7193, 9051, 4506, 1987, 3365, 5410, 7168, 7777, 9865, 5678,
+          8201, 4445, 3016, 4506, 4506]
 
+total_checks = len(checks)
+
+unique_visitors = len(set(checks))
+
+from collections import Counter
+
+visitor_counts = Counter(checks)
+most_frequent_visitor, max_visits = visitor_counts.most_common(1)[0]
+
+print("=== АНАЛИТИКА ПОСЕЩЕНИЙ РЕСТОРАНА ЗА НЕДЕЛЮ ===")
+print(f"Всего было выдано чеков: {total_checks}")
+print(f"Разных людей посетило ресторан: {unique_visitors}")
+print(f"Работник с кодом {most_frequent_visitor} посетил ресторан чаще всех - {max_visits} раз(а)")
+print("\nТоп-5 самых частых посетителей:")
+for visitor, count in visitor_counts.most_common(5):
+    print(f"  Код {visitor}: {count} посещений")
 
 ```
 ![Скриншот выполнения](pic/sam5_1.png)
@@ -214,11 +236,40 @@ print(mylist[::-1])
 ## Самостоятельная работа №2
 ### На физкультуре студенты сдавали бег, у преподавателя физкультуры есть список всех результатов, ему нужно узнать • Три лучшие результата • Три худшие результата • Все результаты начиная с 10 Ваша задача помочь ему в этом. Список результатов бега: [10.2, 14.8, 19.3, 22.7, 12.5, 33.1, 38.9, 21.6, 26.4, 17.1, 30.2, 35.7, 16.9, 27.8, 24.5, 16.3, 18.7, 31.9, 12.9, 37.4] Результатом выполнения задачи будет: листинг кода, и вывод в консоль, в котором будет указана вся необходимая информация.
 ```python
+results = [10.2, 14.8, 19.3, 22.7, 12.5, 33.1, 38.9, 21.6, 26.4, 17.1,
+           30.2, 35.7, 16.9, 27.8, 24.5, 16.3, 18.7, 31.9, 12.9, 37.4]
 
+sorted_results = sorted(results)
 
+print("=== АНАЛИЗ РЕЗУЛЬТАТОВ БЕГА ===")
+print(f"Все результаты: {results}")
+print(f"Отсортированные результаты: {sorted_results}")
+print()
+
+print("Три лучшие результата:")
+for i, result in enumerate(sorted_results[:3], 1):
+    print(f"  {i} место: {result} сек")
+
+print()
+
+print("Три худшие результата:")
+for i, result in enumerate(sorted_results[-3:][::-1], 1):
+    print(f"  {i} место с конца: {result} сек")
+
+print()
+
+print("Все результаты начиная с 10-го места:")
+for i, result in enumerate(sorted_results[9:], 10):
+    print(f"  {i} место: {result} сек")
+
+print()
+print("=== СВОДНАЯ ИНФОРМАЦИЯ ===")
+print(f"Общее количество результатов: {len(results)}")
+print(f"Лучший результат: {min(results)} сек")
+print(f"Худший результат: {max(results)} сек")
+print(f"Средний результат: {sum(results)/len(results):.1f} сек")
 ```
-![Скриншот выполнения](pic/sam5_2.1.png)
-![Скриншот выполнения](pic/sam5_2.2.png)
+![Скриншот выполнения](pic/sam5_2.png)
 ## Выводы
 
 
@@ -226,10 +277,66 @@ print(mylist[::-1])
 ## Самостоятельная работа №3
 ### Преподаватель по математике придумал странную задачку. У вас есть три списка с элементами, каждый элемент которых – длина стороны треугольника, ваша задача найти площади двух треугольников, составленные из максимальных и минимальных элементов полученных списков. Результатом выполнения задачи будет: листинг кода, и вывод в консоль, в котором будут указаны два этих значения. Три списка: one = [12, 25, 3, 48, 71] two = [5, 18, 40, 62, 98] three = [4, 21, 37, 56, 84]
 ```python
+import math
 
+one = [12, 25, 3, 48, 71]
+two = [5, 18, 40, 62, 98]
+three = [4, 21, 37, 56, 84]
+
+print("Исходные списки:")
+print(f"one = {one}")
+print(f"two = {two}")
+print(f"three = {three}")
+print()
+
+def calculate_triangle_area(a, b, c):
+    if a + b > c and a + c > b and b + c > a:
+        p = (a + b + c) / 2
+        area = math.sqrt(p * (p - a) * (p - b) * (p - c))
+        return area
+    else:
+        return None
+
+min_one = min(one)
+min_two = min(two)
+min_three = min(three)
+
+max_one = max(one)
+max_two = max(two)
+max_three = max(three)
+
+print("Минимальные элементы:")
+print(f"min_one = {min_one}, min_two = {min_two}, min_three = {min_three}")
+print("Максимальные элементы:")
+print(f"max_one = {max_one}, max_two = {max_two}, max_three = {max_three}")
+print()
+
+triangle_min = [min_one, min_two, min_three]
+triangle_max = [max_one, max_two, max_three]
+
+print("Треугольник из минимальных элементов:", triangle_min)
+print("Треугольник из максимальных элементов:", triangle_max)
+print()
+
+area_min = calculate_triangle_area(min_one, min_two, min_three)
+area_max = calculate_triangle_area(max_one, max_two, max_three)
+
+print("=== РЕЗУЛЬТАТЫ ===")
+if area_min is not None:
+    print(f"Площадь треугольника из минимальных элементов: {area_min:.2f}")
+else:
+    print("Треугольник из минимальных элементов не существует!")
+
+if area_max is not None:
+    print(f"Площадь треугольника из максимальных элементов: {area_max:.2f}")
+else:
+    print("Треугольник из максимальных элементов не существует!")
+
+print("\n=== ПРОВЕРКА УСЛОВИЙ СУЩЕСТВОВАНИЯ ТРЕУГОЛЬНИКОВ ===")
+print(f"Треугольник мин: {min_one} + {min_two} = {min_one + min_two} > {min_three} -> {min_one + min_two > min_three}")
+print(f"Треугольник макс: {max_one} + {max_two} = {max_one + max_two} > {max_three} -> {max_one + max_two > max_three}")
 ```
-![Скриншот выполнения](pic/sam5_3.1.png)
-![Скриншот выполнения](pic/sam5_3.2.png)
+![Скриншот выполнения](pic/sam5_3.png)
 ## Выводы
 
 
@@ -237,11 +344,65 @@ print(mylist[::-1])
 ## Самостоятельная работа №4
 ### Никто не любит получать плохие оценки, поэтому Борис решил это исправить. Допустим, что все оценки студента за семестр хранятся в одном списке. Ваша задача удалить из этого списка все двойки, а все тройки заменить на четверки. Списки оценок (проверить работу программы на всех трех вариантах): [2, 3, 4, 5, 3, 4, 5, 2, 2, 5, 3, 4, 3, 5, 4] [4, 2, 3, 5, 3, 5, 4, 2, 2, 5, 4, 3, 5, 3, 4] [5, 4, 3, 3, 4, 3, 3, 5, 5, 3, 3, 3, 3, 4, 4] Результатом выполнения задачи будет: листинг кода, и вывод в консоль, в котором будут три обновленных массива
 ```python
+def fix_grades(grades):
 
+    fixed_grades = []
+    for grade in grades:
+        if grade == 3:
+            fixed_grades.append(4)
+        elif grade != 2:
+            fixed_grades.append(grade)
+
+    return fixed_grades
+
+
+grades_list_1 = [2, 3, 4, 5, 3, 4, 5, 2, 2, 5, 3, 4, 3, 5, 4]
+grades_list_2 = [4, 2, 3, 5, 3, 5, 4, 2, 2, 5, 4, 3, 5, 3, 4]
+grades_list_3 = [5, 4, 3, 3, 4, 3, 3, 5, 5, 3, 3, 3, 3, 4, 4]
+
+print("=== ОБРАБОТКА ОЦЕНОК СТУДЕНТА ===")
+print("Правила:")
+print("- Все двойки удаляются")
+print("- Все тройки заменяются на четверки")
+print()
+
+print("Список 1:")
+print(f"Исходный: {grades_list_1}")
+fixed_1 = fix_grades(grades_list_1)
+print(f"Исправленный: {fixed_1}")
+print(f"Статистика: удалено {len(grades_list_1) - len(fixed_1)} двоек, "
+      f"заменено {grades_list_1.count(3)} троек")
+print()
+
+print("Список 2:")
+print(f"Исходный: {grades_list_2}")
+fixed_2 = fix_grades(grades_list_2)
+print(f"Исправленный: {fixed_2}")
+print(f"Статистика: удалено {len(grades_list_2) - len(fixed_2)} двоек, "
+      f"заменено {grades_list_2.count(3)} троек")
+print()
+
+print("Список 3:")
+print(f"Исходный: {grades_list_3}")
+fixed_3 = fix_grades(grades_list_3)
+print(f"Исправленный: {fixed_3}")
+print(f"Статистика: удалено {len(grades_list_3) - len(fixed_3)} двоек, "
+      f"заменено {grades_list_3.count(3)} троек")
+print()
+
+print("=== СВОДНАЯ СТАТИСТИКА ===")
+all_original = grades_list_1 + grades_list_2 + grades_list_3
+all_fixed = fixed_1 + fixed_2 + fixed_3
+
+print(f"Всего оценок в исходных списках: {len(all_original)}")
+print(f"Всего оценок после обработки: {len(all_fixed)}")
+print(f"Удалено двоек всего: {all_original.count(2)}")
+print(f"Заменено троек всего: {all_original.count(3)}")
+print(f"Средний балл до обработки: {sum(all_original) / len(all_original):.2f}")
+print(f"Средний балл после обработки: {sum(all_fixed) / len(all_fixed):.2f}")
 
 ```
-![Скриншот выполнения](pic/sam5_4.1.png)
-![Скриншот выполнения](pic/sam5_4.2.png)
+![Скриншот выполнения](pic/sam5_4.png)
 ## Выводы
 
 
@@ -249,11 +410,69 @@ print(mylist[::-1])
 ## Самостоятельная работа №5
 ### Вам предоставлены списки натуральных чисел, из них необходимо сформировать множества. При этом следует соблюдать это правило: если какое-либо число повторяется, то преобразовать его в строку по следующему образцу: например, если число 4 повторяется 3 раза, то в множестве будет следующая запись: само число 4, строка «44», строка «444». Множества для теста: list_1 = [1, 1, 3, 3, 1] list_2 = [5, 5, 5, 5, 5, 5, 5] list_3 = [2, 2, 1, 2, 2, 5, 6, 7, 1, 3, 2, 2] Результаты вывода (порядок может отличаться, поскольку мы работаем с set()): {'11', 1, 3, '33', '111'} {5, '5555', '555555', '55555', '555', '55', '5555555'} {'11', 1, 3, 2, 5, 6, '222222', '222', 7, '2222', '22222', '22'}
 ```python
+def create_special_set(numbers):
+   
+    result_set = set()
+
+    from collections import Counter
+    count_dict = Counter(numbers)
+
+    for number, count in count_dict.items():
+        result_set.add(number)
+
+        if count > 1:
+            for repeat_count in range(2, count + 1):
+                repeated_str = str(number) * repeat_count
+                result_set.add(repeated_str)
+
+    return result_set
 
 
+list_1 = [1, 1, 3, 3, 1]
+list_2 = [5, 5, 5, 5, 5, 5, 5]
+list_3 = [2, 2, 1, 2, 2, 5, 6, 7, 1, 3, 2, 2]
+
+print("=== ФОРМИРОВАНИЕ МНОЖЕСТВ С ПРЕОБРАЗОВАНИЕМ ПОВТОРОВ ===")
+print("Правило: если число повторяется n раз, то добавляем:")
+print("  - само число")
+print("  - строки: число×2, число×3, ..., число×n")
+print()
+
+print("list_1 =", list_1)
+set_1 = create_special_set(list_1)
+print("Множество 1:", set_1)
+print()
+
+print("list_2 =", list_2)
+set_2 = create_special_set(list_2)
+print("Множество 2:", set_2)
+print()
+
+print("list_3 =", list_3)
+set_3 = create_special_set(list_3)
+print("Множество 3:", set_3)
+print()
+
+print("=== ПОДРОБНЫЙ АНАЛИЗ ПРЕОБРАЗОВАНИЙ ===")
+
+
+def detailed_analysis(numbers, set_name):
+    from collections import Counter
+    count_dict = Counter(numbers)
+    print(f"\n{set_name}:")
+    for number, count in count_dict.items():
+        if count == 1:
+            print(f"  Число {number}: встречается 1 раз -> добавляем только {number}")
+        else:
+            additions = [number] + [str(number) * i for i in range(2, count + 1)]
+            print(f"  Число {number}: встречается {count} раз -> добавляем {additions}")
+
+
+detailed_analysis(list_1, "list_1")
+detailed_analysis(list_2, "list_2")
+detailed_analysis(list_3, "list_3")
 ```
-![Скриншот выполнения](pic/sam5_5.1.png)
-![Скриншот выполнения](pic/sam5_5.2.png)
+![Скриншот выполнения](pic/sam5_5.png)
 ## Выводы
 
 
