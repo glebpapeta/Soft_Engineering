@@ -23,11 +23,10 @@
 ## 1)Составьте текстовый файл и положите его в одну директорию с программой на Python. Текстовый файл должен состоять минимум из двух строк.
 
 ```python
-"We all have some things we do every day or almost every day in a particular order. They are called “daily routine”. Let me tell you about my daily routine.
-
-My typical day is quite busy, it begins at 6 o’clock in the morning when I wake up. When my alarm goes off, I turn it off, get up and make my bed. Then I take a shower, brush my teeth and do my morning workout. I do not exercise much in the morning, just a few simple exercises such as push-ups.
-
-Usually, my mom makes breakfast for all of us. My older brother is a student and he lives in a dormitory. I have breakfast with my family. My father usually walks our dog, but when I have enough time, I like walking the dog myself."
+I have travelled a lot,
+I have seen the world,
+But my favorite place
+Is my home space.
 ```
 ### Результат
 ![Меню](pics/Л1.png)
@@ -35,7 +34,7 @@ Usually, my mom makes breakfast for all of us. My older brother is a student and
 ## 2) Напишите программу, которая выведет только первую строку из вашего файла, при этом используйте конструкцию open()/close().
 
 ```python
-f = open('Task', 'r')
+f = open('input.txt', 'r')
 print(f.readline())
 f.close()
 ```
@@ -46,7 +45,7 @@ f.close()
 ## 3) Напишите программу, которая выведет все строки из вашего файла в массиве, при этом используйте конструкцию open(/)/close().
 
 ```python
-f = open('Task', 'r')
+f = open('input.txt', 'r')
 print(f.readlines())
 f.close()
 ```
@@ -59,7 +58,7 @@ f.close()
 ## 4) Напишите программу, которая выведет все строки из вашего файла в массиве, при этом используйте конструкцию with open().
 
 ```python
-with open ('Task') as f:
+with open('input.txt') as f:
     print(f.readlines())
 ```
 ### Результат
@@ -71,7 +70,7 @@ with open ('Task') as f:
 ## 5) Напишите программу, которая выведет каждую строку из вашего файла отдельно, при этом используйте конструкцию with open().
 
 ```python
-with open ('Task') as f:
+with open('input.txt') as f:
     for line in f:
         print(line)
 ```
@@ -83,10 +82,10 @@ with open ('Task') as f:
 ## 6) Напишите программу, которая будет добавлять новую строку в ваш файл, а потом выведет полученный файл в консоль. Вывод можно осуществлять любым способом. Обязательно проверьте сам файл, чтобы изменения в нем тоже отображались.
 
 ```python
-with open('Task', 'a+') as f:
-    f.write('\nfrom popular website')
+with open('input.txt', 'a+') as f:
+    f.write('\n Im like Hu Tao')
 
-with open('Task', 'r') as f:
+with open('input.txt', 'r') as f:
     result = f.readlines()
     print(result)
 ```
@@ -99,9 +98,9 @@ with open('Task', 'r') as f:
 ## 7) Напишите программу, которая перепишет всю информацию, которая была у вас в файле до этого, например, направит любые данные из произвольно вами составленного списка. Также не забудьте проверить что измененная вами информация сохранилась в файле.
 
 ```python
-lines = ['one', 'two', 'three']
-with open('Task', 'w') as f:
-    for line in lines:
+melon = ['One','two','three']
+with open ('input.txt', 'w') as f:
+    for line in melon:
         f.write('\nCycle run ' + line)
     print('Done!')
 ```
@@ -119,12 +118,12 @@ import os
 def print_docs(directory):
     all_files = os.walk(directory)
     for catalog in all_files:
-        print(f'Папка {catalog[0]} содержит:')
-    print(f'Директории: {", ".join([folder for folder in catalog[1]])}')
-    print(f'Файлы: {", ".join([file for file in catalog[2]])}')
+        print(f'Папка {catalog[0]} Сожержит: ')
+    print(f'Директории: {"," .join([folder for folder in catalog[1]])}')
+    print(f'Файлы: {"," .join([file for file in catalog[2]])}')
     print('-' * 40)
 
-print_docs('D:/Фотки')
+print_docs('D:/мемы')
 ```
 ### Результат
 ![Меню](pics/Л8.png)
@@ -146,20 +145,20 @@ print_docs('D:/Фотки')
 Требуется реализовать функцию, которая выводит слово, имеющее максимальную длину (или список слов, если таковых несколько). 
 
 ```python
-def longestwords(file):
+def longest_words(file):
     with open(file, encoding='utf-8') as f:
         words = f.read().split()
         max_length = len(max(words, key=len))
         for word in words:
             if len(word) == max_length:
-                sought_words = word
+                sought_word = word
 
-            if len(sought_words) == 1:
-                return ' '.join([sought_words])
-            return sought_words
+        if len(sought_word) == 1:
+            return sought_word[0]
+        return sought_word
 
+print(longest_words('input.txt'))
 
-print(longestwords('Task'))
 ```
 ### Результат
 ![Меню](pics/Л9.png)
@@ -177,14 +176,12 @@ import csv
 import datetime
 import time
 
-with open('rows_300.csv', 'w', encoding='utf-8', newline='') as f:
+with open("rows_300.csv",'w', encoding='utf-8', newline='') as f:
     writer = csv.writer(f)
-    writer.writerow(['№', 'Секунда', 'Микросекунда'])
-    for line in range(1, 301):
-        dt = datetime.datetime.now()
-        writer.writerow([line, dt.second, dt.microsecond])
-
-time.sleep(0.01)
+    writer.writerow(['№','Секунда', 'Микросекунда'])
+    for line in range(1,301):
+        writer.writerow([line, datetime.datetime.now().second, datetime.datetime.now().microsecond])
+        time.sleep(0.01)
 ```
 ### Результат
 ![Меню](pics/Л10.png)
