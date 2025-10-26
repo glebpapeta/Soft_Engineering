@@ -39,7 +39,7 @@ print(f.readline())
 f.close()
 ```
 ### Результат
-![Меню](pics/Л2.png)
+![Меню](pics/л2.png)
 
 ### Вывод: 
 ## 3) Напишите программу, которая выведет все строки из вашего файла в массиве, при этом используйте конструкцию open(/)/close().
@@ -50,7 +50,7 @@ print(f.readlines())
 f.close()
 ```
 ### Результат
-![Меню](pics/Л3.png)
+![Меню](pics/л3.png)
 
 ### Вывод: 
 
@@ -62,7 +62,7 @@ with open('input.txt') as f:
     print(f.readlines())
 ```
 ### Результат
-![Меню](pics/Л4.png)
+![Меню](pics/л4.png)
 
 ### Вывод: 
 
@@ -75,7 +75,7 @@ with open('input.txt') as f:
         print(line)
 ```
 ### Результат
-![Меню](pics/Л5.png)
+![Меню](pics/л5.png)
 ### Вывод: 
 
 
@@ -90,7 +90,7 @@ with open('input.txt', 'r') as f:
     print(result)
 ```
 ### Результат
-![Меню](pics/Л6.png)
+![Меню](pics/л6.png)
 
 ### Вывод: 
 
@@ -105,7 +105,7 @@ with open ('input.txt', 'w') as f:
     print('Done!')
 ```
 ### Результат
-![Меню](pics/Л7.png)
+![Меню](pics/л7.png)
 
 ### Вывод: 
 
@@ -126,7 +126,7 @@ def print_docs(directory):
 print_docs('D:/мемы')
 ```
 ### Результат
-![Меню](pics/Л8.png)
+![Меню](pics/л8.png)
 
 ### Вывод: 
 
@@ -161,7 +161,7 @@ print(longest_words('input.txt'))
 
 ```
 ### Результат
-![Меню](pics/Л9.png)
+![Меню](pics/л9.png)
 
 ### Вывод: 
 
@@ -184,7 +184,7 @@ with open("rows_300.csv",'w', encoding='utf-8', newline='') as f:
         time.sleep(0.01)
 ```
 ### Результат
-![Меню](pics/Л10.png)
+![Меню](pics/л10.png)
 
 ### Вывод: 
 
