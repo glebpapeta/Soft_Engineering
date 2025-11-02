@@ -1,70 +1,128 @@
-def get_employee_interval(access_log, employee_id):
+class CoffeeDrink:
+    def __init__(self, name, price, size="средний"):
+        self._name = name
+        self._price = price
+        self._size = size
+        self._is_available = True
+        self._brew_strength = "средняя"
+        self.__secret_recipe = "базовый рецепт"
+        self.__sales_count = 0
 
-    if employee_id not in access_log:
-        return ()
+    def display_info(self):
+        status = "доступен" if self._is_available else "не доступен"
+        print(f"☕ {self._name} - {self._price} руб. ({self._size})")
+        print(f"   Крепость: {self._brew_strength}")
+        print(f"   Статус: {status}")
 
-    first_index = access_log.index(employee_id)
+    def get_name(self):
+        return self._name
 
-    try:
-        second_index = access_log.index(employee_id, first_index + 1)
-
-        return access_log[first_index:second_index + 1]
-    except ValueError:
-
-        return access_log[first_index:]
-
-
-def test_system():
-
-    office_access_log = (101, 102, 103, 101, 104, 105, 102, 106, 103, 101, 107)
-
-    print("Полный лог доступа в офис:")
-    print(office_access_log)
-    print("\n" + "=" * 50 + "\n")
-
-    employee1 = 101
-    result1 = get_employee_interval(office_access_log, employee1)
-    print(f"Сотрудник {employee1}: {result1}")
-    print(f"Первый вход и до второго выхода: {len(result1)} записей\n")
-
-    employee2 = 107
-    result2 = get_employee_interval(office_access_log, employee2)
-    print(f"Сотрудник {employee2}: {result2}")
-    print(f"Только один вход: {len(result2)} записей\n")
-
-    employee3 = 999
-    result3 = get_employee_interval(office_access_log, employee3)
-    print(f"Сотрудник {employee3}: {result3}")
-    print(f"Не было доступа: {len(result3)} записей\n")
-
-    employee4 = 102
-    result4 = get_employee_interval(office_access_log, employee4)
-    print(f"Сотрудник {employee4}: {result4}")
-    print(f"Первый вход и до второго выхода: {len(result4)} записей")
-
-
-def analyze_all_employees(access_log):
-    unique_employees = set(access_log)
-
-    print("\nАнализ всех сотрудников:")
-    print("-" * 40)
-
-    for emp_id in sorted(unique_employees):
-        interval = get_employee_interval(access_log, emp_id)
-        visits = access_log.count(emp_id)
-
-        if visits == 1:
-            status = "Был один раз"
-        elif len(interval) > 0:
-            status = f"Интервал: {len(interval)} записей"
+    def set_price(self, new_price):
+        if new_price > 0:
+            self._price = new_price
+            print(f"Цена изменена на {new_price} руб.")
         else:
-            status = "Не было доступа"
+            print("Цена должна быть положительной")
 
-        print(f"Сотрудник {emp_id}: {visits} посещений, {status}")
+    def get_price(self):
+        return self._price
+
+    def _change_availability(self, available):
+        self._is_available = available
+        status = "доступен" if available else "не доступен"
+        print(f"Статус изменен: {status}")
+
+    def make_available(self):
+        self._change_availability(True)
+
+    def make_unavailable(self):
+        self._change_availability(False)
+
+    def __prepare_ingredients(self):
+        print(f"Подготавливаются ингредиенты для {self._name}...")
+
+    def __calculate_brew_time(self):
+        times = {"слабая": 2, "средняя": 3, "крепкая": 4}
+        return times.get(self._brew_strength, 3)
+
+    def prepare_drink(self):
+        self.__prepare_ingredients()
+        brew_time = self.__calculate_brew_time()
+        print(f"Напиток готовится {brew_time} минуты...")
+        self.__increment_sales()
+        print(f"✅ {self._name} готов!")
+
+    def __increment_sales(self):
+        self.__sales_count += 1
+
+    def get_sales_count(self):
+        return self.__sales_count
+
+    def _get_secret_recipe(self):
+        return f"Секретный рецепт {self._name}: {self.__secret_recipe}"
+
+    def set_brew_strength(self, strength):
+        if strength in ["слабая", "средняя", "крепкая"]:
+            self._brew_strength = strength
+            print(f"Крепость установлена: {strength}")
+        else:
+            print("Недопустимая крепость")
 
 
-if __name__ == "__main__":
-    test_system()
+class PremiumCoffee(CoffeeDrink):
+    def __init__(self, name, price, size="средний", origin="Эфиопия"):
+        super().__init__(name, price, size)
+        self._origin = origin
+        self.__aging_months = 12
 
-    office_log = (101, 102, 103, 101, 104, 105, 102, 106, 103, 101, 107)
-    analyze_all_employees(office_log)
+    def display_info(self):
+        super().display_info()
+        print(f"   Происхождение: {self._origin}")
+
+    def get_aging_info(self):
+        return f"Выдержка: {self.__aging_months} месяцев"
+
+    def _premium_preparation(self):
+        print(f"Особая подготовка премиум кофе из {self._origin}")
+
+
+print("=== БАЗОВЫЙ КЛАСС ===")
+latte = CoffeeDrink("Латте", 250)
+latte.display_info()
+
+print("\n=== ИНКАПСУЛЯЦИЯ: ГЕТТЕРЫ И СЕТТЕРЫ ===")
+print(f"Название напитка: {latte.get_name()}")
+print(f"Текущая цена: {latte.get_price()} руб.")
+latte.set_price(280)
+latte.set_price(-100)
+
+print("\n=== ИНКАПСУЛЯЦИЯ: ДОСТУП К ПРИВАТНЫМ МЕТОДАМ ===")
+latte.prepare_drink()
+latte.prepare_drink()
+print(f"Количество продаж: {latte.get_sales_count()}")
+
+print("\n=== ИНКАПСУЛЯЦИЯ: ЗАЩИЩЕННЫЕ МЕТОДЫ ===")
+latte.make_unavailable()
+latte.display_info()
+latte.make_available()
+
+print("\n=== НАСЛЕДОВАНИЕ И ИНКАПСУЛЯЦИЯ ===")
+premium = PremiumCoffee("Эфиопский Премиум", 500, "маленький", "Эфиопия Йиргачеффе")
+premium.display_info()
+print(premium.get_aging_info())
+
+print("\n=== ПРОВЕРКА ДОСТУПА ===")
+try:
+    print(latte.__secret_recipe)
+except AttributeError as e:
+    print(f"Ошибка доступа к приватному атрибуту: {e}")
+
+try:
+    print(premium.__aging_months)
+except AttributeError as e:
+    print(f"Ошибка доступа к приватному атрибуту: {e}")
+
+print("\n=== ИЗМЕНЕНИЕ СВОЙСТВ ===")
+latte.set_brew_strength("крепкая")
+latte.set_brew_strength("очень крепкая")
+latte.display_info()
