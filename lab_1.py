@@ -1,14 +1,9 @@
-request = int(input("Введите номер кабинета: "))
-dictionary = {
-    101: {'key': 1234, 'access': True},
-    102: {'key': 1337, 'access': True},
-    103: {'key': 8943, 'access': True},
-    104: {'key': 5555, 'access': False},
-    None: {'key': None, 'access': False},
-}
-response = dictionary.get(request)
-if not response:
-    response = dictionary[None]
-key = response.get ("key")
-access = response.get('access')
-print(key, access)
+class Car:  # Определение класса 'Car'
+    def __init__(self, make, model):  # Метод инициализации экземпляра класса
+        self.make = make  # Присваивание значения параметра 'make' атрибуту 'make' объекта
+        self.model = model  # Присваивание значения параметра 'model' атрибуту 'model' объекта
+
+# Создание экземпляра класса 'Car' с параметрами 'Chevrolet' и 'Lacetti'
+my_car = Car("Chevrolet", "Lacetti")
+# Вывод информации об автомобиле на экран
+print(f"Бренд: {my_car.make}, Модель: {my_car.model}")
