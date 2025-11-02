@@ -1,73 +1,113 @@
-def calculate_student_grades(students, subjects, grades):
-    subject_averages = {}
+class CoffeeDrink:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+    
+    def prepare(self):
+        return f"Готовим базовый напиток {self.name}"
+    
+    def calculate_serving_time(self):
+        return 3
+    
+    def get_description(self):
+        return f"Напиток {self.name} - {self.price} руб."
 
-    for i, subject in enumerate(subjects):
-        subject_grades = []
-        for student_grades in grades:
-            if i < len(student_grades):
-                subject_grades.append(student_grades[i])
-        if subject_grades:
-            subject_averages[subject] = sum(subject_grades) / len(subject_grades)
+class Espresso(CoffeeDrink):
+    def prepare(self):
+        return f"🍩 Варим эспрессо {self.name} под давлением 9 бар"
+    
+    def calculate_serving_time(self):
+        return 2
+    
+    def get_description(self):
+        return f"Крепкий эспрессо {self.name} - {self.price} руб."
 
-    student_totals = []
-    for i, student in enumerate(students):
-        if i < len(grades):
-            student_total = sum(grades[i])
-            student_average = student_total / len(grades[i]) if grades[i] else 0
-            student_totals.append((student, student_total, round(student_average, 2)))
+class Latte(CoffeeDrink):
+    def prepare(self):
+        return f"🥛 Готовим латте {self.name} с молочной пенкой"
+    
+    def calculate_serving_time(self):
+        return 4
+    
+    def get_description(self):
+        return f"Нежный латте {self.name} - {self.price} руб."
 
-    top_student = max(student_totals, key=lambda x: x[2]) if student_totals else ("", 0, 0)
+class ColdBrew(CoffeeDrink):
+    def prepare(self):
+        return f"🧊 Подаем колд брю {self.name} со льдом"
+    
+    def calculate_serving_time(self):
+        return 1
+    
+    def get_description(self):
+        return f"Освежающий колд брю {self.name} - {self.price} руб."
 
-    return {
-        'subject_averages': subject_averages,
-        'student_results': student_totals,
-        'top_student': top_student
-    }
+class TurkishCoffee(CoffeeDrink):
+    def prepare(self):
+        return f"🔥 Варим турецкий кофе {self.name} в джезве"
+    
+    def calculate_serving_time(self):
+        return 6
+    
+    def get_description(self):
+        return f"Ароматный турецкий кофе {self.name} - {self.price} руб."
 
+def process_coffee_drink(drink):
+    print("=" * 40)
+    print(drink.get_description())
+    print(drink.prepare())
+    print(f"Время приготовления: {drink.calculate_serving_time()} мин")
+    print(f"Общее время с учетом подачи: {drink.calculate_serving_time() + 1} мин")
 
-def print_results(results):
-    print("Средние баллы по предметам:")
-    for subject, avg in results['subject_averages'].items():
-        print(f"{subject}: {avg:.2f}")
+def create_coffee_bar(drinks):
+    print("🏪 КОФЕЙНАЯ СТОЙКА - ПРОЦЕСС ПРИГОТОВЛЕНИЯ")
+    total_time = 0
+    for drink in drinks:
+        process_coffee_drink(drink)
+        total_time += drink.calculate_serving_time()
+    print("=" * 40)
+    print(f"Общее время приготовления всех напитков: {total_time} мин")
 
-    print("\nРезультаты студентов:")
-    for student, total, avg in results['student_results']:
-        print(f"{student}: сумма = {total}, средний = {avg}")
+def demonstrate_polymorphism():
+    drinks = [
+        Espresso("Ристретто", 200),
+        Latte("Ванильный латте", 280),
+        ColdBrew("Айс кофе", 320),
+        TurkishCoffee("По-восточному", 180),
+        Espresso("Доппио", 220),
+        Latte("Карамельный латте", 300)
+    ]
+    
+    create_coffee_bar(drinks)
+    
+    print("\n🎯 ДЕМОНСТРАЦИЯ ПОЛИМОРФИЗМА В ДЕЙСТВИИ")
+    
+    coffee_list = [
+        CoffeeDrink("Базовый кофе", 150),
+        Espresso("Эспрессо маккиато", 230),
+        Latte("Кокосовый латте", 290),
+        ColdBrew("Нитро кофе", 350)
+    ]
+    
+    print("\nРазные типы кофе в одном списке:")
+    for coffee in coffee_list:
+        print(f"- {coffee.prepare()}")
+    
+    print("\nСравнение времени приготовления:")
+    for coffee in coffee_list:
+        time = coffee.calculate_serving_time()
+        print(f"- {coffee.name}: {time} мин {'⚡' if time < 3 else '⏳'}")
 
-    print(f"\nЛучший студент: {results['top_student'][0]} со средним баллом {results['top_student'][2]}")
+class CoffeeMachine:
+    def make_drink(self, coffee_drink):
+        print(f"\n☕ КОФЕМАШИНА: {coffee_drink.prepare()}")
+        print(f"⏱️  Прогноз: {coffee_drink.calculate_serving_time()} мин")
 
+print("🚀 ЗАПУСК ПРОГРАММЫ С ПОЛИМОРФИЗМОМ")
+demonstrate_polymorphism()
 
-students1 = ["Иван", "Мария", "Петр"]
-subjects1 = ["Математика", "Физика", "Химия"]
-grades1 = [
-    [5, 4, 3],
-    [4, 5, 5],
-    [3, 4, 4]
-]
-
-students2 = ["Анна", "Сергей"]
-subjects2 = ["История", "Литература"]
-grades2 = [
-    [5, 5],
-    [4, 3]
-]
-
-students3 = ["Ольга"]
-subjects3 = ["Биология", "География", "Английский"]
-grades3 = [
-    [5, 4, 5]
-]
-
-print("ТЕСТ 1:")
-result1 = calculate_student_grades(students1, subjects1, grades1)
-print_results(result1)
-
-print("\n" + "=" * 50)
-print("ТЕСТ 2:")
-result2 = calculate_student_grades(students2, subjects2, grades2)
-print_results(result2)
-
-print("\n" + "=" * 50)
-print("ТЕСТ 3:")
-result3 = calculate_student_grades(students3, subjects3, grades3)
-print_results(result3)
+print("\n🤖 РАБОТА С КОФЕМАШИНОЙ")
+machine = CoffeeMachine()
+machine.make_drink(Espresso("Эспрессо", 200))
+machine.make_drink(Latte("Латте", 280))
+machine.make_drink(ColdBrew("Колд брю", 320))
