@@ -1,7 +1,12 @@
-def personal_info(name, age, company="unnamed"):
-    print(f"Иня: {name} Возраст: {age} Компания: {company}")
+class Car:
+    def __init__(self, make, model):
+        self._make = make
+        self.__model = model
 
-tom = ("Григорий", 22)
-personal_info(*tom)
-bob = ("Георгий", 41, "Yandex")
-personal_info(*bob)
+    def drive(self):
+        print(f"Driving the {self._make} {self.__model}")
+
+
+my_car = Car ("Toyota", "Corolla")
+print(my_car._make)
+my_car.drive()
