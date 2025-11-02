@@ -1,18 +1,10 @@
-# Определение класса Car
 class Car:
-    # Метод инициализации, который вызывается при создании нового экземпляра класса
-    def __init__(self, make, model):
-        # Сохранение марки автомобиля в атрибуте 'make'
+    def __init__(self, make, model) :
         self.make = make
-        # Сохранение модели автомобиля в атрибуте 'model'
         self.model = model
-
-    # Метод для имитации вождения автомобиля
+        
     def drive(self):
-        # Вывод сообщения о вождении текущего автомобиля
         print(f"Driving the {self.make} {self.model}")
 
-# Создание экземпляра класса Car с маркой Chevrolet и моделью Lacetti
-my_car = Car("Chevrolet", "Lacetti")
-# Вызов метода drive у созданного экземпляра my_car
+my_car = Car ("Toyota", "Corolla")
 my_car.drive()
