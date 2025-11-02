@@ -1,10 +1,18 @@
-from pprint import pprint
+# Определение класса Car
+class Car:
+    # Метод инициализации, который вызывается при создании нового экземпляра класса
+    def __init__(self, make, model):
+        # Сохранение марки автомобиля в атрибуте 'make'
+        self.make = make
+        # Сохранение модели автомобиля в атрибуте 'model'
+        self.model = model
 
-my_dict = {'first': 'so easy'}
+    # Метод для имитации вождения автомобиля
+    def drive(self):
+        # Вывод сообщения о вождении текущего автомобиля
+        print(f"Driving the {self.make} {self.model}")
 
-def dict_maker(**kwargs):
-    my_dict.update(**kwargs)
-
-dict_maker(a1=1, a2=20, a3=54, a4=13)
-dict_maker(name="Михаил", age=31, weight=70, eyes_color="blue")
-pprint (my_dict)
+# Создание экземпляра класса Car с маркой Chevrolet и моделью Lacetti
+my_car = Car("Chevrolet", "Lacetti")
+# Вызов метода drive у созданного экземпляра my_car
+my_car.drive()
